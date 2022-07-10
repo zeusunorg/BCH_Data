@@ -9,15 +9,15 @@ fig = make_subplots(
             [{},{},{},{},{},{},{},{},{}],
             [{},{},{},{},{},{},{},{},{}],
             ],
-    subplot_titles=("Binance Price","Aggregate Net Flow","Volume", "1-10 Addresses", "10-100 Addresses", "100-1k Addresses", "1-10 Cash Flow", "10-100 Cash Flow", "100-1k Cash Flow","1-10 Coins", "10-100 Coins", "100-1k Coins", "1k-10k Addresses","10k-100k Addresses","Plus 100k Addresses", "1k-10k Cash Flow","10k-100k Cash Flow","Plus 100k Cash Flow", "1k-10k Coins","10k-100k Coins","Plus 100k Coins"))
+    subplot_titles=("Price","Aggregate Net Flow","Volume", "1-10 Addresses", "10-100 Addresses", "100-1k Addresses", "1-10 Cash Flow", "10-100 Cash Flow", "100-1k Cash Flow","1-10 Coins", "10-100 Coins", "100-1k Coins", "1k-10k Addresses","10k-100k Addresses","Plus 100k Addresses", "1k-10k Cash Flow","10k-100k Cash Flow","Plus 100k Cash Flow", "1k-10k Coins","10k-100k Coins","Plus 100k Coins"))
 
-#PriceChart from Binance
+#PriceChart from Yahoo Finance
 
 data = yf.download(tickers="BCH-USD", period = "7d", interval = "1H", rounding= True)
 
 fig.add_trace(go.Candlestick(x=data.index,open = data["Open"], high=data["High"], low=data["Low"], close=data["Close"], name = "market data"),
 row=1, col=1),
-fig.update_layout(title = "BCH Price", yaxis_title = "BCH Price")
+fig.update_layout(title = "", yaxis_title = "")
 fig.update_xaxes(
 rangeslider_visible=False,
 )
@@ -27,7 +27,7 @@ data = yf.download(tickers="BCH-USD", period = "7d", interval = "1H", rounding= 
 
 df = pd.read_csv("DashboardData2.csv")
 
-fig.add_trace(go.Bar(x=df.iloc[:,0], y=df.iloc[:,18],name="Aggr. Net Flow"),
+fig.add_trace(go.Bar(x=df.iloc[:,0], y=df.iloc[:,19],name="Aggr. Net Flow"),
                  row=1, col=4)
 
 #Volume Chart on Binance
@@ -50,11 +50,11 @@ fig.add_trace(go.Scatter(x=df.iloc[:,0], y=df.iloc[:,2], name="..."),
 fig.add_trace(go.Scatter(x=df.iloc[:,0], y=df.iloc[:,1], name="..."),
               row=2, col=1)
 
-fig.add_trace(go.Scatter(x=df.iloc[:,0], y=df.iloc[:,4], name="..."),
+fig.add_trace(go.Scatter(x=df.iloc[:,0], y=df.iloc[:,6], name="..."),
                  row=3, col=3)
 fig.add_trace(go.Scatter(x=df.iloc[:,0], y=df.iloc[:,5], name="..."),
                  row=3, col=2)
-fig.add_trace(go.Scatter(x=df.iloc[:,0], y=df.iloc[:,6], name="..."),
+fig.add_trace(go.Scatter(x=df.iloc[:,0], y=df.iloc[:,4], name="..."),
                  row=3, col=1)
 
 #NetFlows on USD Daily
@@ -88,7 +88,8 @@ fig.add_trace(go.Scatter(x=df.iloc[:,0], y=df.iloc[:,10],name="1k-10k"),
                  row=3, col=7)
 
 
-fig.update_layout(height=2160, width=3840, showlegend=False, title_text="BCH Dashboard Beta")
+fig.update_layout(height=1080, width=1920, showlegend=False, title_text="BCH Dashboard Beta")
 for template in ["plotly_dark"]:
     fig.update_layout(template=template)
+
 fig.show()
