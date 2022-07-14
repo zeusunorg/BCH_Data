@@ -30,7 +30,7 @@ df = pd.read_csv("DashboardData2.csv")
 fig.add_trace(go.Bar(x=df.iloc[:,0], y=df.iloc[:,19],name="Aggr. Net Flow"),
                  row=1, col=4)
 
-#Volume Chart on Binance
+#Volume Chart Yahoo Finance
 
 data = yf.download(tickers="BCH-USD", period = "7d", interval = "1H", rounding= True)
 fig.add_trace(go.Bar(x=data.index, 
